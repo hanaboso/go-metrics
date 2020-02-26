@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+    app:
+        image: dkr.hanaboso.net/hanaboso/go-metrics:dev
+        user: ${DEV_UID}:${DEV_GID}
+        volumes:
+            - ./:/go-metrics
+            - ${GOPATH}/pkg:/go/pkg
+        environment:
+            DEV_UID: ${DEV_UID}
+            DEV_GID: ${DEV_GID}
+            METRICS_MONGO_DSN: mongodb://mongodb/database?connectTimeoutMS=2500&serverSelectionTimeoutMS=2500&socketTimeoutMS=2500&heartbeatFrequencyMS=2500
+            METRICS_INFLUX_DSN: influxdb://influxdb:8089
+
+    mongodb:
+        image: mongo:latest
+        ports:
+            - ${DEV_IP}:27017:27017
+        volumes:
+            - mongodb:/data/db
+
+    influxdb:
+        image: influxdb:alpine
+        ports:
+            - ${DEV_IP}:8086:8086
+            - ${DEV_IP}:8089:8089/udp
+        volumes:
+            - influxdb:/var/lib/influxdb
+        environment:
+            INFLUXDB_UDP_ENABLED: 'true'
+            INFLUXDB_UDP_BIND_ADDRESS: :8089
+
+volumes:
+    mongodb:
+    influxdb:
