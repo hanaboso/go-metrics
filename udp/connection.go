@@ -11,7 +11,8 @@ const errorFormat = "[UDP] %+v"
 
 // Connection represents UDP connection
 type Connection struct {
-	UDP *net.UDPConn
+	UDP    *net.UDPConn
+	ticker *time.Ticker
 }
 
 // Connect creates UDP connection
@@ -20,7 +21,7 @@ func (connection *Connection) Connect(dsn string) {
 
 	if err != nil {
 		log.Println(fmt.Sprintf(errorFormat, err))
-		time.Sleep(time.Second)
+		time.Sleep(10 * time.Second)
 		connection.Connect(dsn)
 
 		return
@@ -30,19 +31,23 @@ func (connection *Connection) Connect(dsn string) {
 
 	if err != nil {
 		log.Println(fmt.Sprintf(errorFormat, err))
-		time.Sleep(time.Second)
+		time.Sleep(10 * time.Second)
 		connection.Connect(dsn)
 
 		return
 	}
 
-	ticker := time.NewTicker(time.Minute)
+	if connection.ticker == nil {
+		connection.ticker = time.NewTicker(time.Minute)
 
-	go func() {
-		for range ticker.C {
-			connection.Connect(dsn)
-		}
-	}()
+		go func() {
+			for range connection.ticker.C {
+				connection.Connect(dsn)
+			}
+		}()
+	}
+
+	return
 }
 
 // Disconnect from UDP
@@ -55,7 +60,10 @@ func (connection *Connection) Disconnect() {
 		return
 	}
 
+	connection.ticker.Stop()
 	connection.UDP = nil
+
+	return
 }
 
 // IsConnected checks connection status
