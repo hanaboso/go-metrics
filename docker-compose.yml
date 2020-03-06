@@ -2,10 +2,10 @@ version: '3.5'
 
 services:
     app:
-        image: dkr.hanaboso.net/hanaboso/go-metrics:dev
+        image: hanabosocom/go-base:dev
         user: ${DEV_UID}:${DEV_GID}
         volumes:
-            - ./:/go-metrics
+            - ./:/app
             - ${GOPATH}/pkg:/go/pkg
         environment:
             DEV_UID: ${DEV_UID}

@@ -25,9 +25,9 @@ docker-compose.ci.yml:
 go-update:
 	$(DE) su-exec root go get -u all
 	$(DE) su-exec root go mod tidy
+	$(DE) su-exec root chown dev:dev go.mod go.sum
 
 init-dev: docker-up-force
-	$(DE) go mod download
 
 lint:
 	$(DE) gofmt -w .
