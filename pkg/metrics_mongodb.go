@@ -1,4 +1,4 @@
-package metrics
+package pkg
 
 import (
 	"github.com/hanaboso/go-mongodb"

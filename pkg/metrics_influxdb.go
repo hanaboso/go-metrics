@@ -1,4 +1,4 @@
-package metrics
+package pkg
 
 import (
 	"errors"
@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hanaboso/go-metrics/udp"
+	"github.com/hanaboso/go-metrics/pkg/udp"
 )
 
 const schemeInfluxDB = "influxdb://"
