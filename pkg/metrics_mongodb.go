@@ -1,8 +1,10 @@
 package pkg
 
 import (
+	"context"
 	"github.com/hanaboso/go-mongodb"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
+	"time"
 )
 
 const schemeMongoDB = connstring.SchemeMongoDB + "://"
@@ -14,7 +16,7 @@ type mongoDbMetrics struct {
 
 // Send metrics to MongoDB
 func (metrics mongoDbMetrics) Send(name string, tags map[string]interface{}, fields map[string]interface{}) error {
-	innerContext, cancel := metrics.connection.Context()
+	innerContext, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	_, err := metrics.connection.Database.Collection(name).InsertOne(innerContext, map[string]interface{}{
