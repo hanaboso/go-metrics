@@ -51,8 +51,6 @@ func (connection *Connection) Connect(dsn string) {
 			}
 		}()
 	}
-
-	return
 }
 
 // Disconnect from UDP
@@ -67,8 +65,6 @@ func (connection *Connection) Disconnect() {
 
 	connection.ticker.Stop()
 	connection.UDP = nil
-
-	return
 }
 
 // IsConnected checks connection status
