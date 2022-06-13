@@ -90,15 +90,13 @@ func (metrics influxDbMetrics) prepareItems(items map[string]interface{}, escape
 			switch item {
 			case true:
 				items[k] = "true"
-				break
 			case false:
 				items[k] = "false"
-				break
 			}
 		} else if item == nil {
 			items[k] = "null"
 		} else if t == reflect.TypeOf(s) {
-			if escape == true {
+			if escape {
 				items[k] = metrics.escapeString(fmt.Sprintf("%s", item))
 			} else {
 				items[k] = fmt.Sprintf("%s", item)
