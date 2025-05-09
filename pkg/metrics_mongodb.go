@@ -3,7 +3,7 @@ package pkg
 import (
 	"context"
 	"github.com/hanaboso/go-mongodb"
-	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
+	"go.mongodb.org/mongo-driver/v2/x/mongo/driver/connstring"
 	"time"
 )
 

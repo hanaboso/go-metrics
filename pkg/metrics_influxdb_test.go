@@ -7,7 +7,7 @@ import (
 )
 
 func TestInfluxDbMetrics(t *testing.T) {
-	metrics = createInfluxDbMetrics(getInfluDbDsn())
+	metrics = createInfluxDbMetrics(getInfluxDbDsn())
 	assert.True(t, metrics.IsConnected())
 
 	metrics.Disconnect()
@@ -15,7 +15,7 @@ func TestInfluxDbMetrics(t *testing.T) {
 }
 
 func TestInfluxDbSend(t *testing.T) {
-	metrics = createInfluxDbMetrics(getInfluDbDsn())
+	metrics = createInfluxDbMetrics(getInfluxDbDsn())
 
 	assert.Nil(t, metrics.Send("metrics", data, map[string]interface{}{
 		"nil":     nil,

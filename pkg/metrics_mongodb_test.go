@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func TestMongoDbMetrics(t *testing.T) {
@@ -34,7 +34,7 @@ func TestMongoDbSend(t *testing.T) {
 		"integer": 1,
 	}))
 
-	count, err := connection.Database.Collection("metrics").CountDocuments(innerContext, primitive.D{{}})
+	count, err := connection.Database.Collection("metrics").CountDocuments(innerContext, bson.D{{}})
 	assert.Nil(t, err)
 	assert.Equal(t, 1, int(count))
 }

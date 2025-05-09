@@ -1,3 +1,4 @@
+// Package pkg metrics
 package pkg
 
 import (

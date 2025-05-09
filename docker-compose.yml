@@ -1,8 +1,6 @@
-version: '3.5'
-
 services:
     app:
-        image: hanabosocom/go-base:1.19
+        image: hanabosocom/go-base:1.24
         user: ${DEV_UID}:${DEV_GID}
         volumes:
             - ./:/app
@@ -21,7 +19,7 @@ services:
             - mongodb:/data/db
 
     influxdb:
-        image: influxdb:1.8-alpine
+        image: influxdb:1.11-alpine
         ports:
             - ${DEV_IP}:8086:8086
             - ${DEV_IP}:8089:8089/udp
